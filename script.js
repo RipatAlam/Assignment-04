@@ -1,7 +1,6 @@
-console.log("Hello World");
-
 let interviewJobs = [];
 let rejectedJobs = [];
+let currentStyle = "all-filter-btn";
 
 
 //Counting parts-------------------------------------------->
@@ -14,7 +13,6 @@ let totalSection = document.getElementById("total-card");
 let totalCard = document.querySelectorAll(".job-card");
 let mainSection = document.querySelector("main");
 
-let currentStyle = "all-filter-btn";
 
 //filter buttons----------------------------------------------->
 let allFilterBtn = document.getElementById("all-filter-btn");
@@ -151,6 +149,23 @@ mainSection.addEventListener("click", function (event) {
             interviewjobsfeelup();
         }
         calculateCount();
+    }
+    else if(event.target.closest(".delete-btn")) {
+        let parentNode = event.target.closest(".job-card");
+        let jobTitle = parentNode.querySelector(".jobTitle").innerText;
+        parentNode.remove();
+
+        interviewJobs = interviewJobs.filter(i => i.jobTitle !== jobTitle);
+        rejectedJobs = rejectedJobs.filter(i => i.jobTitle !== jobTitle);
+
+        if(currentStyle === "interview-filter-btn") {
+            interviewjobsfeelup();
+        }
+        else if(currentStyle === "rejected-filter-btn") {
+            rejectedjobsfeelup();
+        }
+        calculateCount();
+
     }
 });
 
